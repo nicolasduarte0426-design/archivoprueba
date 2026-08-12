@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Centro de Biotecnología Agropecuaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <h1>Centro de Biotecnología Agropecuaria</h1>
+
+    <h2>Estoy usando el puerto <span class="puerto">5050</span></h2>
+
+    <p class="autor">Santiago Duarte</p>
+
+    <div class="estado">
+    <strong>ESTADO DE LA BASE DE DATOS:</strong><br>
+     Conectada correctamente
+
+    </div>
+
+    <h2>Registrar Aprendiz</h2>
+
+    <form action="/registrar" method="POST">
+
+        <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre Completo"
+            required>
+
+        <input
+            type="text"
+            name="documento"
+            placeholder="Número de Documento"
+            required>
+
+        <input
+            type="text"
+            name="ficha"
+            placeholder="Número de Ficha"
+            required>
+
+        <button type="submit">
+            Guardar Aprendiz
+        </button>
+
+    </form>
+
+    <h2>Aprendices en la BD</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Documento</th>
+                <th>Ficha</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% if aprendices %}
+
+            {% for aprendiz in aprendices %}
+
+            <tr>
+                <td>{{ aprendiz[0] }}</td>
+                <td>{{ aprendiz[1] }}</td>
+                <td>{{ aprendiz[2] }}</td>
+                <td>{{ aprendiz[3] }}</td>
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+                <td colspan="4">
+                    No hay aprendices registrados.
+                </td>
+            </tr>
+
+        {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>
