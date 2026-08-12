@@ -1,38 +1,41 @@
 services:
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: proxy-manager
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      - ./npm_data:/data
+      - ./npm_letsencrypt:/etc/letsencrypt
+
   app-backend:
     build: .
     container_name: app-backend
-
     ports:
       - "5050:5050"
-
     volumes:
       - .:/app
-
     depends_on:
       - servidor-bd
-
     environment:
       DB_HOST: servidor-bd
       DB_USER: root
       DB_PASSWORD: 123456
       DB_NAME: adso_db
-
     restart: always
 
   servidor-bd:
     image: mysql:8.0
     container_name: servidor-bd
-
     restart: always
-
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: adso_db
-
     ports:
       - "3306:3306"
-
     volumes:
       - mysql-data:/var/lib/mysql
 
